@@ -1,5 +1,9 @@
 import { FETCH_POSTS } from "./types";
 
-export const fetchPosts = () => {
-  return { type: FETCH_POSTS };
+import jsonPlaceholder from "../api/jsonPlaceholder";
+
+export const fetchPosts = () => async dispatch => {
+  const res = await jsonPlaceholder.get("/posts");
+  console.log(res.data);
+  dispatch({ type: FETCH_POSTS, payload: res.data });
 };
