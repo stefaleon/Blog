@@ -1,21 +1,22 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
 import reducers from "./reducers";
 import PostList from "./components/PostList";
 
 import "./App.css";
 
-function App() {
-  return (
-    <Provider store={createStore(reducers)}>
-      <div className="App">
-        <div className="title">Blog</div>
-        <PostList />
-      </div>
-    </Provider>
-  );
-}
+const store = createStore(reducers, applyMiddleware(thunk));
+
+const App = () => (
+  <Provider store={store}>
+    <div className="App">
+      <div className="title">Blog</div>
+      <PostList />
+    </div>
+  </Provider>
+);
 
 export default App;
